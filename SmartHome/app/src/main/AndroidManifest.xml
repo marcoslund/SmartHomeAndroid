@@ -22,10 +22,10 @@
         <activity
             android:name=".DoorActivity"
             android:label="@string/door" />
-        <activity android:name=".ACActivity" />
-        <activity android:name=".LampActivity" />
-        <activity android:name=".OvenActivity" />
-        <activity android:name=".RefrigeratorActivity"></activity>
+        <activity android:name=".ACActivity" android:label="@string/air_conditioner" />
+        <activity android:name=".LampActivity" android:label="@string/lamp" />
+        <activity android:name=".OvenActivity" android:label="@string/oven" />
+        <activity android:name=".RefrigeratorActivity" android:label="@string/refrigerator" />
     </application>
 
 </manifest>
