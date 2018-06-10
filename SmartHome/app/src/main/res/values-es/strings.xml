@@ -1,0 +1,15 @@
+<resources>
+    <string name="tab_text_1">Inicio</string>
+    <string name="tab_text_2">Dispositivos</string>
+    <string name="tab_text_3">Rutinas</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="door">Puerta</string>
+    <string name="air_conditioner">Aire Acondicionado</string>
+    <string name="refrigerator">Heladera</string>
+    <string name="oven">Horno</string>
+    <string name="lamp">Lámpara</string>
+    <string name="open">Abierta</string>
+    <string name="close">Cerrada</string>
+    <string name="lock">Bloqueada</string>
+    <string name="unlock">Desbloqueada</string>
+</resources>
