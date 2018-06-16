@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.grupo7.hci.smarthome.smarthome.Classes.ApiURLs;
+
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private ApiURLs urls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +75,26 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        RequestQueue requestQueue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        urls = new ApiURLs();
+        Log.d("url", urls.getAllDevicesURL());
+        final  TextView mTextView = (TextView) findViewById(R.id.section_label);
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, urls.getAllDevicesURL(),null,
+        new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("tag", response.toString());
+                mTextView.setText("Response: " + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("tag2", "error en el get");
+                error.printStackTrace();
+            }
+        });
+        requestQueue.add(jsObjRequest);
 
     }
 

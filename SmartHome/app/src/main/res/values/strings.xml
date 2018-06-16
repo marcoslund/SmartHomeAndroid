@@ -42,16 +42,6 @@
         <string name="radio_100">100</string>
     <string name="brightness">Brightness</string>
     <string name="color">Color</string>
-    <string-array name="colors">
-        <item>White</item>
-        <item>Orange</item>
-        <item>Yellow</item>
-        <item>Red</item>
-        <item>Magenta</item>
-        <item>Blue</item>
-        <item>Cyan</item>
-        <item>Lime</item>
-    </string-array>
     <string name="heat">Heat</string>
         <string name="conventional">Conventional</string>
         <string name="bottom">Bottom</string>
