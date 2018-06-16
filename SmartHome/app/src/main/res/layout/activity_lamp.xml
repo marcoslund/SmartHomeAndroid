@@ -13,10 +13,10 @@
         android:background="#3F51B5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/imageView_lamp" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageView_lamp"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
@@ -27,7 +27,7 @@
         app:srcCompat="@drawable/lamp_icon" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/textView_lamp_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -42,10 +42,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_lamp" />
 
     <Switch
-        android:id="@+id/switch5"
+        android:id="@+id/switch_lamp_on"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -67,8 +67,8 @@
         android:layout_marginTop="16dp"
         android:text="@string/brightness"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toStartOf="@+id/switch5"
-        app:layout_constraintTop_toBottomOf="@+id/switch5" />
+        app:layout_constraintStart_toStartOf="@+id/switch_lamp_on"
+        app:layout_constraintTop_toBottomOf="@+id/switch_lamp_on" />
 
     <SeekBar
         android:id="@+id/seekBar5"
@@ -76,9 +76,9 @@
         android:layout_height="32dp"
         android:layout_marginStart="76dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/switch5"
+        app:layout_constraintEnd_toEndOf="@+id/switch_lamp_on"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/switch5" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_lamp_on" />
 
 </android.support.constraint.ConstraintLayout>
