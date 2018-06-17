@@ -44,13 +44,13 @@ public class ACActivity extends AppCompatActivity {
 //            })
     }
 
-    protected void onChangeMode(id) {
+    // protected void onChangeMode(id) {
 //        $('input[name=mode]').on("change", function() {
 //            var state = $("form input[name='mode']:checked").val();
 //            api.device.executeAction(device.id, "setMode", [state])
 //      .done(function(data, textStatus, jqXHR) {
-            })
-    }
+            //})
+    //}
 
     protected void onChangeVSwing() {
 //        $('input[name=v-swing]').on("change", function() {

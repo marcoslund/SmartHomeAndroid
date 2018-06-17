@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private ApiURLs urls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,26 +74,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        RequestQueue requestQueue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        urls = new ApiURLs();
-        Log.d("url", urls.getAllDevicesURL());
-        final  TextView mTextView = (TextView) findViewById(R.id.section_label);
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, urls.getAllDevicesURL(),null,
-        new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("tag", response.toString());
-                mTextView.setText("Response: " + response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("tag2", "error en el get");
-                error.printStackTrace();
-            }
-        });
-        requestQueue.add(jsObjRequest);
 
     }
 
@@ -180,3 +159,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+//    RequestQueue requestQueue = VolleySingleton.getInstance(this).getRequestQueue();
+//    ApiURLs urls = new ApiURLs();
+//
+//    JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, urls.getAllDevicesURL(), new JSONObject(),
+//            new Response.Listener<JSONObject>() {
+//                @Override
+//                public void onResponse(JSONObject response) {
+//                    Log.d("Success", "Successfull get request");
+//                }
+//            }, new Response.ErrorListener() {
+//        @Override
+//        public void onErrorResponse(VolleyError error) {
+//            Log.d("Error", "Failed request");
+//            error.printStackTrace();
+//        }
+//    });
+//        requestQueue.add(jsObjRequest);
