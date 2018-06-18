@@ -14,31 +14,41 @@ public class DoorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_door);
 
-        /*Switch switchOpen = findViewById(R.id.switch_door_open);
-        Switch switchLock = findViewById(R.id.switch_door_lock);
+        /*final Switch switchOpen = findViewById(R.id.switch_door_open);
+        final Switch switchLock = findViewById(R.id.switch_door_lock);
 
         JSONObject apiResponse = getDeviceStatus(deviceId);
         if(apiResponse.status.equals("open") || apiResponse.status.equals("opening")) {
             switchOpen.setChecked(true);
+            switchOpen.setText(R.string.open);
         } else {
             switchOpen.setChecked(false);
         }
 
         switchOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setDeviceStatus(deviceId, "open-status", !isChecked);
+                if(isChecked)
+                    switchOpen.setText(R.string.open);
+                else
+                    switchOpen.setText(R.string.close);
+                setDeviceStatus(deviceId, "open-status", isChecked);
             }
         });
 
         if(apiResponse.status.equals("locked")) {
             switchLock.setChecked(true);
+            switchLock.setText(R.string.lock);
         } else {
             switchLock.setChecked(false);
         }
 
         switchLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setDeviceStatus(deviceId, "lock-status", !isChecked);
+                if(isChecked)
+                    switchLock.setText(R.string.lock);
+                else
+                    switchLock.setText(R.string.unlock);
+                setDeviceStatus(deviceId, "lock-status", isChecked);
             }
         });*/
 

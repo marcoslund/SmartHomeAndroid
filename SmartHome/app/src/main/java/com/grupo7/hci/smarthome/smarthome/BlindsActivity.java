@@ -14,18 +14,23 @@ public class BlindsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blinds);
 
-       /* Switch switchOpen = findViewById(R.id.switch_blinds_open);
+        /*final Switch switchOpen = findViewById(R.id.switch_blinds_open);
 
         JSONObject apiResponse = getDeviceStatus(deviceId);
         if(apiResponse.status.equals("opened") || apiResponse.status.equals("opening")) {
             switchOpen.setChecked(true);
+            switchOpen.setText(R.string.open);
         } else {
             switchOpen.setChecked(false);
         }
 
         switchOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setDeviceStatus(deviceId, "open-status", !isChecked);
+                if(isChecked)
+                    switchOpen.setText(R.string.open);
+                else
+                    switchOpen.setText(R.string.close);
+                setDeviceStatus(deviceId, "open-status", isChecked);
             }
         });*/
     }

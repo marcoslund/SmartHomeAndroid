@@ -17,22 +17,27 @@ public class LampActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lamp);
 
-        Switch switchOn = findViewById(R.id.switch_lamp_on);
-        SeekBar brightness = findViewById(R.id.seekBar_lamp_brightness);
+        /*final Switch switchOn = findViewById(R.id.switch_lamp_on);
+        final SeekBar brightness = findViewById(R.id.seekBar_lamp_brightness);
 
-        /*JSONObject apiResponse = getDeviceStatus(deviceId);
+        JSONObject apiResponse = getDeviceStatus(deviceId);
         if(apiResponse.status.equals("on")) {
             switchOn.setChecked(true);
+            switchOn.setText(R.string.on);
         } else {
             switchOn.setChecked(false);
         }
 
         brightness.setMax(100);
-        brightness.setProgress(apiResonse.brightness);
+        brightness.setProgress(apiResponse.brightness);
 
         switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setDeviceStatus(deviceId, "on-status", !isChecked);
+                if(isChecked)
+                    switchOn.setText(R.string.on);
+                else
+                    switchOn.setText(R.string.off);
+                setDeviceStatus(deviceId, "on-status", isChecked);
             }
         });
 
