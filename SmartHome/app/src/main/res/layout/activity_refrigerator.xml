@@ -13,10 +13,10 @@
         android:background="#3F51B5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/imageView_refrigerator" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imageView_refrigerator"
         android:layout_width="102dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
@@ -27,7 +27,7 @@
         app:srcCompat="@drawable/refrigerator_icon" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/textView_refrigerator_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -38,11 +38,11 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintBottom_toBottomOf="@+id/view6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_refrigerator" />
 
     <RadioGroup
         android:layout_width="372dp"
@@ -52,11 +52,11 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView12">
+        app:layout_constraintStart_toStartOf="@+id/textView_refrigerator_mode"
+        app:layout_constraintTop_toBottomOf="@+id/textView_refrigerator_mode">
 
         <RadioButton
-            android:id="@+id/radioButton10"
+            android:id="@+id/radioButton_refrigerator_defaultmode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -64,7 +64,7 @@
             tools:text="@string/defaul" />
 
         <RadioButton
-            android:id="@+id/radioButton11"
+            android:id="@+id/radioButton_refrigerator_vacationmode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -72,7 +72,7 @@
             tools:text="@string/vacation" />
 
         <RadioButton
-            android:id="@+id/radioButton12"
+            android:id="@+id/radioButton_refrigerator_partymode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -81,54 +81,57 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/textView_refrigerator_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:text="@string/temperature"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
         tools:layout_editor_absoluteY="260dp"
         tools:text="@string/temperature" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/textView_refrigerator_freezer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/freezer_temperature"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toStartOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintStart_toStartOf="@+id/textView_refrigerator_temp"
+        app:layout_constraintTop_toBottomOf="@+id/textView_refrigerator_temp"
         tools:text="@string/freezer_temperature" />
 
     <SeekBar
-        android:id="@+id/seekBar2"
+        android:id="@+id/seekBar_refrigerator_freezer"
         android:layout_width="146dp"
         android:layout_height="32dp"
         android:layout_marginStart="104dp"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintStart_toEndOf="@+id/textView_refrigerator_temp"
+        app:layout_constraintTop_toBottomOf="@+id/textView_refrigerator_temp"
         tools:layout_editor_absoluteY="260dp" />
 
     <SeekBar
-        android:id="@+id/seekBar4"
+        android:id="@+id/seekBar_refrigerator_mode"
         android:layout_width="147dp"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/seekBar_refrigerator_freezer"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/seekBar2"
+        app:layout_constraintStart_toStartOf="@+id/seekBar_refrigerator_freezer"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_refrigerator_freezer"
         tools:layout_editor_absoluteY="316dp" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/textView_refrigerator_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/mode"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintStart_toStartOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintStart_toStartOf="@+id/textView_refrigerator_freezer"
+        app:layout_constraintTop_toBottomOf="@+id/textView_refrigerator_freezer"
         tools:text="@string/mode" />
 
 </android.support.constraint.ConstraintLayout>

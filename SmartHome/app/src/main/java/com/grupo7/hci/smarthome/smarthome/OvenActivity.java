@@ -10,6 +10,21 @@ public class OvenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oven);
 
+        /*Switch switchOn = findViewById(R.id.switch_oven_on);
+
+        JSONObject apiResponse = getDeviceStatus(deviceId);
+        if(apiResponse.status.equals("on")) {
+            switchOn.setChecked(true);
+        } else {
+            switchOn.setChecked(false);
+        }
+
+        switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setDeviceStatus(deviceId, "on-status", !isChecked);
+            }
+        });*/
+
 //        .done(function(data, textStatus, jqXHR) {
 //            var result = data.result;
 //            if (result.status === "on") {

@@ -2,6 +2,10 @@ package com.grupo7.hci.smarthome.smarthome;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+
+import org.json.JSONObject;
 
 public class BlindsActivity extends AppCompatActivity {
 
@@ -10,14 +14,20 @@ public class BlindsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blinds);
 
-        //apiResponse = getDeviceStatus(deviceId);
-        //if(apiResponse.status == "opened" || apiResponse.status == "opening") {
-          //  view.;
-//            $("#open-switch").prop("checked", true);
-//        } else {
-//            $("#open-status").text("Closed");
-//        }
+       /* Switch switchOpen = findViewById(R.id.switch_blinds_open);
 
+        JSONObject apiResponse = getDeviceStatus(deviceId);
+        if(apiResponse.status.equals("opened") || apiResponse.status.equals("opening")) {
+            switchOpen.setChecked(true);
+        } else {
+            switchOpen.setChecked(false);
+        }
+
+        switchOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setDeviceStatus(deviceId, "open-status", !isChecked);
+            }
+        });*/
     }
 
     protected void onChangeOpenStatus() {

@@ -2,6 +2,12 @@ package com.grupo7.hci.smarthome.smarthome;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
+
+import org.json.JSONObject;
 
 public class ACActivity extends AppCompatActivity {
 
@@ -9,6 +15,65 @@ public class ACActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ac);
+
+       /* Switch switchOn = findViewById(R.id.switch_ac_on);
+        RadioGroup radioGroupMode = findViewById(R.id.radioGroup_ac_mode);
+        RadioGroup radioGroupVSwing = findViewById(R.id.radioGroup_vswing);
+        RadioGroup radioGroupHSwing = findViewById(R.id.radioGroup_hswing);
+        RadioGroup radioGroupFanSpeed = findViewById(R.id.radioGroup_fanspeed);
+
+        JSONObject apiResponse = getDeviceStatus(deviceId);
+        if(apiResponse.status.equals("on")) {
+            switchOn.setChecked(true);
+        } else {
+            switchOn.setChecked(false);
+        }
+
+        RadioButton[] selectedButtons = new RadioButton[4];
+        selectedButtons[0] = findViewById("radioButton_ac_" + apiResponse.mode.toLowerCase());
+        selectedButtons[1] = findViewById("radioButton_ac_" + apiResponse.verticalSwing +"vswing");
+        selectedButtons[2] = findViewById("radioButton_ac_" + apiResponse.horizontalSwing +"hswing");
+        selectedButtons[3] = findViewById("radioButton_ac_" + apiResponse.fanSpeed +"fsp");
+        for(RadioButton rb : selectedButtons)
+            rb.setChecked(true);
+
+        switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setDeviceStatus(deviceId, "on-status", !isChecked);
+            }
+        });
+
+        radioGroupMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = findViewById(checkedId);
+                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
+            }
+        });
+
+        radioGroupVSwing.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = findViewById(checkedId);
+                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
+            }
+        });
+
+        radioGroupHSwing.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = findViewById(checkedId);
+                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
+            }
+        });
+
+        radioGroupFanSpeed.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = findViewById(checkedId);
+                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
+            }
+        });
 
 //        if(result.status === "on") {
 //            $("#on-status").text("On");
@@ -21,7 +86,7 @@ public class ACActivity extends AppCompatActivity {
 //        $("#vSwing" + result.verticalSwing).prop("checked", true);
 //        $("#hSwing" + result.horizontalSwing).prop("checked", true);
 //        $("#fanSpeed" + result.fanSpeed).prop("checked", true);
-    }
+    */}
 
     protected void onTurnOnOrOff() {
 //        if(status === "On") {
@@ -44,12 +109,12 @@ public class ACActivity extends AppCompatActivity {
 //            })
     }
 
-    protected void onChangeMode(id) {
+    protected void onChangeMode(int id) {
 //        $('input[name=mode]').on("change", function() {
 //            var state = $("form input[name='mode']:checked").val();
 //            api.device.executeAction(device.id, "setMode", [state])
 //      .done(function(data, textStatus, jqXHR) {
-            })
+//            })
     }
 
     protected void onChangeVSwing() {

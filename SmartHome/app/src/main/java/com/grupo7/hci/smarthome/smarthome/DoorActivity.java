@@ -2,6 +2,10 @@ package com.grupo7.hci.smarthome.smarthome;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+
+import org.json.JSONObject;
 
 public class DoorActivity extends AppCompatActivity {
 
@@ -9,6 +13,34 @@ public class DoorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_door);
+
+        /*Switch switchOpen = findViewById(R.id.switch_door_open);
+        Switch switchLock = findViewById(R.id.switch_door_lock);
+
+        JSONObject apiResponse = getDeviceStatus(deviceId);
+        if(apiResponse.status.equals("open") || apiResponse.status.equals("opening")) {
+            switchOpen.setChecked(true);
+        } else {
+            switchOpen.setChecked(false);
+        }
+
+        switchOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setDeviceStatus(deviceId, "open-status", !isChecked);
+            }
+        });
+
+        if(apiResponse.status.equals("locked")) {
+            switchLock.setChecked(true);
+        } else {
+            switchLock.setChecked(false);
+        }
+
+        switchLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setDeviceStatus(deviceId, "lock-status", !isChecked);
+            }
+        });*/
 
 //        .done(function(data, textStatus, jqXHR) {
 //            if (data.result.status === "opened" || data.result.status === "opening") {

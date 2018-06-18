@@ -2,6 +2,11 @@ package com.grupo7.hci.smarthome.smarthome;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import org.json.JSONObject;
 
 public class LampActivity extends AppCompatActivity {
 
@@ -9,6 +14,21 @@ public class LampActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lamp);
+
+        /*Switch switchOn = findViewById(R.id.switch_lamp_on);
+
+        JSONObject apiResponse = getDeviceStatus(deviceId);
+        if(apiResponse.status.equals("on")) {
+            switchOn.setChecked(true);
+        } else {
+            switchOn.setChecked(false);
+        }
+
+        switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setDeviceStatus(deviceId, "on-status", !isChecked);
+            }
+        });*/
 
 //        .done(function(data, textStatus, jqXHR) {
 //            if (data.result.status === "on") {
