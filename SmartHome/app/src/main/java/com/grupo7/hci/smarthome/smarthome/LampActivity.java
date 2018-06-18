@@ -3,8 +3,10 @@ package com.grupo7.hci.smarthome.smarthome;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CompoundButton;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -15,18 +17,42 @@ public class LampActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lamp);
 
-        /*Switch switchOn = findViewById(R.id.switch_lamp_on);
+        Switch switchOn = findViewById(R.id.switch_lamp_on);
+        SeekBar brightness = findViewById(R.id.seekBar_lamp_brightness);
 
-        JSONObject apiResponse = getDeviceStatus(deviceId);
+        /*JSONObject apiResponse = getDeviceStatus(deviceId);
         if(apiResponse.status.equals("on")) {
             switchOn.setChecked(true);
         } else {
             switchOn.setChecked(false);
         }
 
+        brightness.setMax(100);
+        brightness.setProgress(apiResonse.brightness);
+
         switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 setDeviceStatus(deviceId, "on-status", !isChecked);
+            }
+        });
+
+        brightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //t1.setText(progress); //textview with value
+                //Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
+                setDeviceStatus(deviceId, "brightness", ((Integer)progress).toString());
             }
         });*/
 

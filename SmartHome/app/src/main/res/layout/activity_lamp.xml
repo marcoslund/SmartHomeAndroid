@@ -71,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/switch_lamp_on" />
 
     <SeekBar
-        android:id="@+id/seekBar5"
+        android:id="@+id/seekBar_lamp_brightness"
         android:layout_width="179dp"
         android:layout_height="32dp"
         android:layout_marginStart="76dp"

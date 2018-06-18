@@ -2,6 +2,12 @@ package com.grupo7.hci.smarthome.smarthome;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
+
+import org.json.JSONObject;
 
 public class OvenActivity extends AppCompatActivity {
 
@@ -12,6 +18,10 @@ public class OvenActivity extends AppCompatActivity {
 
         /*Switch switchOn = findViewById(R.id.switch_oven_on);
 
+        RadioGroup radioGroupHeat = findViewById(R.id.radioGroup_oven_heat);
+        RadioGroup radioGroupGrill = findViewById(R.id.radioGroup_oven_grill);
+        RadioGroup radioGroupConvection = findViewById(R.id.radioGroup_oven_convection);
+
         JSONObject apiResponse = getDeviceStatus(deviceId);
         if(apiResponse.status.equals("on")) {
             switchOn.setChecked(true);
@@ -19,9 +29,40 @@ public class OvenActivity extends AppCompatActivity {
             switchOn.setChecked(false);
         }
 
+        RadioButton[] selectedButtons = new RadioButton[3];
+        selectedButtons[0] = findViewById("radioButton_oven_" + apiResponse.heat.toLowerCase() +"heat");
+        selectedButtons[1] = findViewById("radioButton_oven_" + apiResponse.grill +"grill");
+        selectedButtons[2] = findViewById("radioButton_oven_" + apiResponse.convection +"convection");
+        for(RadioButton rb : selectedButtons)
+            rb.setChecked(true);
+
         switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 setDeviceStatus(deviceId, "on-status", !isChecked);
+            }
+        });
+
+        radioGroupHeat.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = findViewById(checkedId);
+                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
+            }
+        });
+
+        radioGroupGrill.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = findViewById(checkedId);
+                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
+            }
+        });
+
+        radioGroupConvection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = findViewById(checkedId);
+                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
             }
         });*/
 

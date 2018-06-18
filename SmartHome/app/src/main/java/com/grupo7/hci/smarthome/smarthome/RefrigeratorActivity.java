@@ -2,6 +2,8 @@ package com.grupo7.hci.smarthome.smarthome;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class RefrigeratorActivity extends AppCompatActivity {
 
@@ -9,6 +11,21 @@ public class RefrigeratorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refrigerator);
+
+        /*RadioGroup radioGroupMode = findViewById(R.id.radioGroup_refrigerator_mode);
+
+        RadioButton[] selectedButtons = new RadioButton[1];
+        selectedButtons[0] = findViewById("radioButton_refrigerator_" + apiResponse.mode.toLowerCase() +"mode");
+        for(RadioButton rb : selectedButtons)
+            rb.setChecked(true);
+
+        radioGroupMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = findViewById(checkedId);
+                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
+            }
+        });*/
 
 //        .done(function(data, textStatus, jqXHR) {
 //            var result = data.result;
