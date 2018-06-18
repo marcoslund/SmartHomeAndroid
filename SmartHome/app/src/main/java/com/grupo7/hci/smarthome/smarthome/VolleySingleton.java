@@ -1,4 +1,4 @@
-package com.grupo7.hci.smarthome.smarthome.Classes;
+package com.grupo7.hci.smarthome.smarthome;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ public class VolleySingleton {
     private static Context context;
     private RequestQueue requestQueue;
 
-    private VolleySingleton(Context context) {
+    public VolleySingleton(Context context) {
         VolleySingleton.context = context;
         requestQueue = getRequestQueue();
     }
