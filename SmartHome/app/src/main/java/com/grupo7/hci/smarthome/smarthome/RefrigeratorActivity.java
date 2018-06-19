@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -70,7 +71,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("getState", "Error on Blind get State");
-                // TODO toast init
+                Toast.makeText(context, R.string.init_error_msg, Toast.LENGTH_LONG).show();
                 error.printStackTrace();
             }
         });
@@ -86,12 +87,12 @@ public class RefrigeratorActivity extends AppCompatActivity {
                     requestTag = ApiURLs.getInstance(context).executeAction(dev, "setMode", param, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            // TODO add success toast
+                            Toast.makeText(context, R.string.set_mode_s, Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // TODO add error toast
+                            Toast.makeText(context, R.string.set_mode_f, Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -111,12 +112,12 @@ public class RefrigeratorActivity extends AppCompatActivity {
                     requestTag = ApiURLs.getInstance(context).executeAction(dev, "setTemperature", temperature, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            // TODO add success toast
+                            Toast.makeText(context, R.string.set_temperature_s, Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // TODO add error toast
+                            Toast.makeText(context, R.string.set_temperature_f, Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -136,12 +137,12 @@ public class RefrigeratorActivity extends AppCompatActivity {
                     requestTag = ApiURLs.getInstance(context).executeAction(dev, "setFreezerTemperature", temperature, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            // TODO add success toast
+                            Toast.makeText(context, R.string.set_ftemperature_s, Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // TODO add error toast
+                            Toast.makeText(context, R.string.set_ftemperature_f, Toast.LENGTH_LONG).show();
                         }
                     });
                 }
