@@ -6,6 +6,7 @@
     <string name="door">Puerta</string>
     <string name="air_conditioner">Aire Acondicionado</string>
     <string name="refrigerator">Heladera</string>
+    <string name="blinds">Persianas</string>
     <string name="oven">Horno</string>
     <string name="lamp">Lámpara</string>
     <string name="open">Abierta</string>
@@ -37,4 +38,17 @@
         <string name="eco">Eco</string>
     <string name="convection">Convección</string>
         <string name="normal">Normal</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+    <string name="name">Nombre</string>
+    <string name="add_device">Agregar Dispositivo</string>
+    <string name="no_name_error">Por favor ingrese un nombre</string>
+    <string name="no_categ_found">Error: No se encontraron categorías</string>
+    <string name="notifTitle">Puerta Abierta</string>
+    <string name="notifBody">Parece que tiene una puerta abierta. Le aconsejamos que la cierre por seguridad</string>
+    <string name="init_error_msg">No se pudo traer la información actual.</string>
+    <string name="set_mode_s">Cambio de modo exitoso</string>
+    <string name="set_mode_f">Fallo en el cambio de modo</string>
+    <string name="action_msg_s">Acción guardada</string>
+    <string name="action_msg_f">No se pudo guardar la acción</string>
 </resources>

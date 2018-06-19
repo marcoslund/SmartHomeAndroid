@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -80,7 +81,6 @@ public class BlindsActivity extends Fragment {
                         } else {
                             switchOpen.setText(R.string.close);
                         }
-                        // TODO get response data to set switch
                     } catch (JSONException e) {
                         Log.d("hola", "ERROR FATAL");
                         e.printStackTrace();
@@ -90,7 +90,7 @@ public class BlindsActivity extends Fragment {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.d("getState", "Error on Blind get State");
-                    // TODO toast init
+                    Toast.makeText(context, R.string.init_error_msg, Toast.LENGTH_LONG).show();
                     error.printStackTrace();
                 }
             });*/
@@ -111,12 +111,12 @@ public class BlindsActivity extends Fragment {
                                 switchOpen.setText(R.string.open);
                             else
                                 switchOpen.setText(R.string.close);
-                            // TODO add success toast
+                            Toast.makeText(context, R.string.action_msg_s, Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // TODO add error toast
+                            Toast.makeText(context, R.string.action_msg_f, Toast.LENGTH_LONG).show();
                         }
                     });
                 }

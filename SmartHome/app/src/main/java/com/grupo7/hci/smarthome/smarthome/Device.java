@@ -15,6 +15,12 @@ public class Device {
         this.meta = meta;
     }
 
+    public Device(String typeId, String name, String meta) {
+        this.typeId = typeId;
+        this.name = name;
+        this.meta = meta;
+    }
+
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
