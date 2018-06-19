@@ -51,4 +51,7 @@
     <string name="set_mode_f">Fallo en el cambio de modo</string>
     <string name="action_msg_s">Acción guardada</string>
     <string name="action_msg_f">No se pudo guardar la acción</string>
+    <string name="home_txt_1">Bienvenido a SmartHome. Esperamos que disfrute la app!</string>
+    <string name="home_txt_2">Puede ver y crear dispositivos, y en el futuro ejecutar rutinas!</string>
+    <string name="routine_txt_1">Esta tab tendrá funcionalidad en el  futuro. Lo sentimos :(</string>
 </resources>

@@ -71,4 +71,7 @@
     <string name="set_ftemperature_f">Freezer temperature change failed</string>
     <string name="action_msg_s">Action Recorded</string>
     <string name="action_msg_f">Could not save action</string>
+    <string name="home_txt_1">Welcome to SmartHome. We hope you enjoy our app!</string>
+    <string name="home_txt_2">You can check and create devices, and in the future execute your routines!</string>
+    <string name="routine_txt_1">This tab will have functionality in the future. We are sorry :(</string>
 </resources>
