@@ -1,10 +1,14 @@
 package com.grupo7.hci.smarthome.smarthome;
 
 import android.content.Context;
+import android.util.JsonReader;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,12 +84,12 @@ public class ApiURLs {
         return uuid;
     }
 
-    public String executeAction(Device dev, String actionName, ArrayList params, Response.Listener<Boolean> listener, Response.ErrorListener errorListener) {
+    public String executeAction(Device dev, String actionName, ArrayList params, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         String url = baseUrl + "devices/" + dev.getId() + "/" + actionName;
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");
-        GsonRequest<ArrayList, Boolean> request =
-                new GsonRequest<ArrayList, Boolean>(Request.Method.PUT, url, params, "result", Boolean.class, headers, listener, errorListener);
+        GsonRequest<ArrayList, JSONObject> request =
+                new GsonRequest<ArrayList, JSONObject>(Request.Method.PUT, url, params, "result", JSONObject.class, headers, listener, errorListener);
         String uuid = UUID.randomUUID().toString();
         request.setTag(uuid);
         requestQueue.add(request);

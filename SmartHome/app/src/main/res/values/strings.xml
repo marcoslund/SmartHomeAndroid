@@ -58,6 +58,8 @@
     <string name="no_name_error">Please enter a device name</string>
     <string name="no_categ_found">Error: No categories found</string>
 
+    <string name="notifTitle">Open Door</string>
+    <string name="notifBody">It seems that you have an open door. We suggest you close it for safety.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

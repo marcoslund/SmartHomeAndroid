@@ -44,4 +44,7 @@
     <string name="add_device">Agregar Dispositivo</string>
     <string name="no_name_error">Por favor ingrese un nombre</string>
     <string name="no_categ_found">Error: No se encontraron categorías</string>
+    <string name="notifTitle">Puerta Abierta</string>
+    <string name="notifBody">Parece que tiene una puerta abierta. Le aconsejamos que la cierre por seguridad.</string>
+>>>>>>> b03c1ae1841fc3338fd358b8b25e97017bfe1541
 </resources>

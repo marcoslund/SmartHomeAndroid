@@ -1,100 +1,190 @@
 package com.grupo7.hci.smarthome.smarthome;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.os.SystemClock;
+import android.provider.Settings;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.app.AlarmManager;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class DoorActivity extends AppCompatActivity {
+
+    private String requestTag;
+    private Device dev;
+    private Context context;
+    private NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    private AlarmManager alarmManager;
+    private PendingIntent alarmNotificationReceiverPendingIntent;
+    private PendingIntent contentIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_door);
 
-        /*final Switch switchOpen = findViewById(R.id.switch_door_open);
-        final Switch switchLock = findViewById(R.id.switch_door_lock);
+        context = this.getApplicationContext();
 
-        JSONObject apiResponse = getDeviceStatus(deviceId);
-        if(apiResponse.status.equals("open") || apiResponse.status.equals("opening")) {
-            switchOpen.setChecked(true);
-            switchOpen.setText(R.string.open);
-        } else {
-            switchOpen.setChecked(false);
+        final String deviceId = getIntent().getStringExtra("deviceId");
+        if (deviceId != null) {
+            requestTag = ApiURLs.getInstance(context).getDevice(deviceId, new Response.Listener<Device>() {
+                @Override
+                public void onResponse(Device response) {
+                    dev = new Device(deviceId, response.getName(), response.getTypeId(), response.getMeta());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // TODO toast init
+                    error.printStackTrace();
+                }
+            });
         }
 
-        switchOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    switchOpen.setText(R.string.open);
-                else
-                    switchOpen.setText(R.string.close);
-                setDeviceStatus(deviceId, "open-status", isChecked);
+        final Switch switchOpen = (Switch) findViewById(R.id.switch_door_open);
+        final Switch switchLock = (Switch) findViewById(R.id.switch_door_lock);
+
+        requestTag = ApiURLs.getInstance(context).executeAction(dev, "getState", new ArrayList(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject result = response.getJSONObject("result");
+                    String status = result.getString("status");
+                    String lock = result.getString("lock");
+                    if (switchOpen != null) {
+                        if (status == "opened" || status == "opening") {
+                            switchOpen.setText(R.string.open);
+                            switchOpen.setChecked(true);
+                        } else {
+                            switchOpen.setText(R.string.close);
+                        }
+                    }
+                    if(switchLock != null) {
+                        if (status == "locked") {
+                            switchLock.setText(R.string.lock);
+                            switchLock.setChecked(true);
+                        } else {
+                            switchLock.setText(R.string.unlock);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("getState", "Error on Blind get State");
+                // TODO toast init
+                error.printStackTrace();
             }
         });
 
-        if(apiResponse.status.equals("locked")) {
-            switchLock.setChecked(true);
-            switchLock.setText(R.string.lock);
-        } else {
-            switchLock.setChecked(false);
-        }
+
+        switchOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String actionName;
+                final boolean auxChecked = isChecked;
+                if (isChecked)
+                    actionName = "open";
+                else
+                    actionName = "close";
+                requestTag = ApiURLs.getInstance(context).executeAction(dev, actionName, new ArrayList(), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (auxChecked) {
+                            switchOpen.setText(R.string.open);
+                            scheduleNotification(60000);
+                        } else {
+                            switchOpen.setText(R.string.close);
+                        }
+                        // TODO add success toast
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO add error toast
+                    }
+                });
+            }
+        });
 
         switchLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    switchLock.setText(R.string.lock);
+                String actionName;
+                final boolean auxChecked = isChecked;
+                if (isChecked)
+                    actionName = "lock";
                 else
-                    switchLock.setText(R.string.unlock);
-                setDeviceStatus(deviceId, "lock-status", isChecked);
+                    actionName = "unlock";
+                requestTag = ApiURLs.getInstance(context).executeAction(dev, actionName, new ArrayList(), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (auxChecked)
+                            switchOpen.setText(R.string.lock);
+                        else
+                            switchOpen.setText(R.string.unlock);
+                        // TODO add success toast
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO add error toast
+                    }
+                });
             }
-        });*/
-
-//        .done(function(data, textStatus, jqXHR) {
-//            if (data.result.status === "opened" || data.result.status === "opening") {
-//                $("#open-status").text("Open");
-//                $("#open-switch").prop("checked", true);
-//            } else {
-//                $("#open-status").text("Closed");
-//            }
-//            if (data.result.lock === "locked") {
-//                $("#lock-status").text("Locked");
-//                $("#lock-switch").prop("checked", true);
-//            } else {
-//                $("#lock-status").text("Unlocked");
-//            }
+        });
     }
 
-    protected void onChangeOpenStatus() {
-//        $("#open-switch").on("click", function() {
-//            var status = $("#open-status").text();
-//            if(status === "Open") {
-//                api.device.executeAction(device.id, "close", [])
-//        .done(function(data, textStatus, jqXHR) {
-//                    $("#open-status").text("Closed");
-//                })
-//        else {
-//            api.device.executeAction(device.id, "open", [])
-//        .done(function(data, textStatus, jqXHR) {
-//                $("#open-status").text("Open");
-//            })
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ApiURLs.getInstance(context).cancelRequest(requestTag);
+        alarmManager.cancel(alarmNotificationReceiverPendingIntent);
     }
 
-    protected void onChangeLockStatus() {
-//        $("#lock-switch").on("click", function() {
-//            var status = $("#lock-status").text();
-//            if(status === "Locked") {
-//                api.device.executeAction(device.id, "unlock", [])
-//        .done(function(data, textStatus, jqXHR) {
-//                    $("#lock-status").text("Unlocked");
-//                })
-//        else {
-//            api.device.executeAction(device.id, "lock", [])
-//        .done(function(data, textStatus, jqXHR) {
-//                $("#lock-status").text("Locked");
-//            })
-    }
+    private void scheduleNotification(int delay) {
+        Intent finalNotificationIntent = new Intent(context, DoorActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(DoorActivity.class);
+        stackBuilder.addNextIntent(finalNotificationIntent);
+        finalNotificationIntent.putExtra("deviceId", dev.getId());
+        contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification notification = new Notification.Builder(context)
+                .setContentTitle(getResources().getString(R.string.notifTitle))
+                .setContentText(getResources().getString(R.string.notifBody))
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_info_details))
+                .setSmallIcon(android.R.drawable.ic_menu_info_details)
+                .setContentIntent(contentIntent).build();
 
+        alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
 }

@@ -1,164 +1,200 @@
 package com.grupo7.hci.smarthome.smarthome;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class OvenActivity extends AppCompatActivity {
+
+    private String requestTag;
+    private Device dev;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oven);
 
-        /*final Switch switchOn = findViewById(R.id.switch_oven_on);
-        final SeekBar temperature = findViewById(R.id.seekBar_oven_temp);
+        context = this.getApplicationContext();
+
+        final Switch switchOn = findViewById(R.id.switch_oven_on);
+        final SeekBar temperatureSeek = findViewById(R.id.seekBar_oven_temp);
         final RadioGroup radioGroupHeat = findViewById(R.id.radioGroup_oven_heat);
         final RadioGroup radioGroupGrill = findViewById(R.id.radioGroup_oven_grill);
         final RadioGroup radioGroupConvection = findViewById(R.id.radioGroup_oven_convection);
 
-        JSONObject apiResponse = getDeviceStatus(deviceId);
-        if(apiResponse.status.equals("on")) {
-            switchOn.setChecked(true);
-            switchOn.setText(R.string.on);
-        } else {
-            switchOn.setChecked(false);
+        if (temperatureSeek != null) {
+            temperatureSeek.setMax(230 - 90);
         }
 
-        RadioButton[] selectedButtons = new RadioButton[3];
-        int rb0 = getResources().getIdentifier("radioButton_oven_" + apiResponse.heat.toLowerCase() +"heat",
-                "id", getPackageName());
-        int rb1 = getResources().getIdentifier("radioButton_oven_" + apiResponse.grill +"grill",
-                "id", getPackageName());
-        int rb2 = getResources().getIdentifier("radioButton_oven_" + apiResponse.convection +"convection",
-                "id", getPackageName());
-        selectedButtons[0] = findViewById(rb0);
-        selectedButtons[1] = findViewById(rb1);
-        selectedButtons[2] = findViewById(rb2);
-        for(RadioButton rb : selectedButtons)
-            rb.setChecked(true);
-
-        temperature.setMax(230 - 90);
-        temperature.setProgress(apiResponse.temperature);
-
-        switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    switchOn.setText(R.string.on);
-                else
-                    switchOn.setText(R.string.off);
-                setDeviceStatus(deviceId, "on-status", isChecked);
-            }
-        });
-
-        radioGroupHeat.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        requestTag = ApiURLs.getInstance(context).executeAction(dev, "getState", new ArrayList(), new Response.Listener<JSONObject>() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject result = response.getJSONObject("result");
+                    String status = result.getString("status");
+                    int temperature  = result.getInt("temperature");
+                    String heat = result.getString("heat");
+                    String grill = result.getString("grill");
+                    String convection = result.getString("convection");
+                    if (switchOn != null) {
+                        if (status == "on") {
+                            switchOn.setText(R.string.on);
+                            switchOn.setChecked(true);
+                        } else {
+                            switchOn.setText(R.string.off);
+                        }
+                    }
+                    if (temperatureSeek != null) {
+                        temperatureSeek.setProgress(temperature - 90 );
+                    }
+                    RadioButton[] selectedButtons = new RadioButton[3];
+                    int rb0 = getResources().getIdentifier("radioButton_oven_" + heat.toLowerCase() +"heat",
+                            "id", getPackageName());
+                    int rb1 = getResources().getIdentifier("radioButton_oven_" + grill +"grill",
+                            "id", getPackageName());
+                    int rb2 = getResources().getIdentifier("radioButton_oven_" + convection +"convection",
+                            "id", getPackageName());
+                    selectedButtons[0] = findViewById(rb0);
+                    selectedButtons[1] = findViewById(rb1);
+                    selectedButtons[2] = findViewById(rb2);
+                    for(RadioButton rb : selectedButtons) {
+                        if (rb != null)
+                            rb.setChecked(true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("getState", "Error on Blind get State");
+                // TODO toast init
+                error.printStackTrace();
             }
         });
 
-        radioGroupGrill.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
-            }
-        });
+
+        if (switchOn != null) {
+            switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    String actionName;
+                    final boolean auxChecked = isChecked;
+                    if (isChecked)
+                        actionName = "turnOn";
+                    else
+                        actionName = "turnOff";
+                    requestTag = ApiURLs.getInstance(context).executeAction(dev, actionName, new ArrayList(), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            if (auxChecked)
+                                switchOn.setText(R.string.on);
+                            else
+                                switchOn.setText(R.string.off);
+                            // TODO add success toast
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // TODO add error toast
+                        }
+                    });
+                }
+            });
+        }
+
+        if (radioGroupHeat != null) {
+            radioGroupHeat.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    handleGroupSelection("setHeat", checkedId);
+                }
+            });
+        }
+
+        if (radioGroupGrill != null) {
+            radioGroupGrill.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    handleGroupSelection("setGrill", checkedId);
+                }
+            });
+        }
 
         radioGroupConvection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
+                handleGroupSelection("setConvection", checkedId);
             }
         });
 
-        temperature.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
+        temperatureSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
             }
-
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //t1.setText(progress); //textview with value
-                //Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
-                setDeviceStatus(deviceId, "temperature", ((Integer)progress).toString());
+                ArrayList temperature = new ArrayList();
+                temperature.add(progress + 90);
+                requestTag = ApiURLs.getInstance(context).executeAction(dev, "setTemperature", temperature, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // TODO add success toast
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO add error toast
+                    }
+                });
             }
-        });*/
+        });
 
-//        .done(function(data, textStatus, jqXHR) {
-//            var result = data.result;
-//            if (result.status === "on") {
-//                $("#on-status").text("On");
-//                $("#on-switch").prop("checked", true);
-//            } else {
-//                $("#on-status").text("Off");
-//            }
-//            $("#temperature").val(result.temperature);
-//            $("#heat-text").text(result.temperature);
-//            $("#heat" + result.heat).prop("checked", true);
-//            $("#grill" + result.grill).prop("checked", true);
-//            $("#conv" + result.convection).prop("checked", true);
     }
 
-    protected void onTurnOnOrOff() {
-//        $("#on-switch").on("click", function() {
-//            var status = $("#on-status").text();
-//            if(status === "On") {
-//                api.device.executeAction(device.id, "turnOff", [])
-//        .done(function(data, textStatus, jqXHR) {
-//                    $("#on-status").text("Off");
-//                })
-//        else {
-//            api.device.executeAction(device.id, "turnOn", [])
-//        .done(function(data, textStatus, jqXHR) {
-//                $("#on-status").text("On");
-//            })
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ApiURLs.getInstance(context).cancelRequest(requestTag);
     }
 
-    protected void onChangeHeat() {
-//        $('input[name=heat]').on("change", function() {
-//            var state = $("form input[name='heat']:checked").val();
-//            api.device.executeAction(device.id, "setHeat", [state])
-//      .done(function(data, textStatus, jqXHR) {
-//            })
+    private void handleGroupSelection(String actionName, int checkedId) {
+        RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
+        ArrayList param = new ArrayList();
+        if (checkedRadioButton != null)
+            param.add(checkedRadioButton.getText().toString().toLowerCase());
+        requestTag = ApiURLs.getInstance(context).executeAction(dev, actionName, param, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                // TODO add success toast
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO add error toast
+            }
+        });
     }
-
-    protected void onChangeGrill() {
-//        $('input[name=grill]').on("change", function() {
-//            var state = $("form input[name='grill']:checked").val();
-//            api.device.executeAction(device.id, "setGrill", [state])
-//      .done(function(data, textStatus, jqXHR) {
-//            })
-    }
-
-    protected void onChangeConvection() {
-//        $('input[name=convection]').on("change", function() {
-//            var state = $("form input[name='convection']:checked").val();
-//            api.device.executeAction(device.id, "setConvection", [state])
-//      .done(function(data, textStatus, jqXHR) {
-//            })
-    }
-
-    protected void onChangeTemperature() {
-//        $("#temperature").on("mouseup", function() {
-//            var temperature = $("#temperature").val()
-//            api.device.executeAction(device.id, "setTemperature", [temperature])
-//      .done(function(data, textStatus, jqXHR) {
-//            })
-    }
-
 
 }

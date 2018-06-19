@@ -11,7 +11,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,8 +37,10 @@ public class DevicesTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_devices, container, false);
-
         RequestQueue requestQueue = VolleySingleton.getInstance(this.getContext()).getRequestQueue();
+
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         ApiURLs urls = new ApiURLs();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, urls.getAllDevicesURL(), new JSONObject(),
                 new Response.Listener<JSONObject>() {
@@ -61,6 +65,12 @@ public class DevicesTab extends Fragment {
                                 //deviceBtn.setBackgroundResource(R.drawable.devices_button);
                                 deviceBtn.setText(name);
                                 //deviceBtn.setId(Integer.parseInt(id));
+                                deviceBtn.setOnClickListener(new OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                    }
+                                });
                                 Drawable image;
                                 Bitmap bitmap;
                                 if(typeId.equals("li6cbv5sdlatti0j")) {
@@ -105,12 +115,7 @@ public class DevicesTab extends Fragment {
         });
         requestQueue.add(jsObjRequest);
 
-        /*
-        }*/
-
         return rootView;
     }
-
-
 
 }
