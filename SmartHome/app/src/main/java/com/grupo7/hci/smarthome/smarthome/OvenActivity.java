@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Switch;
 
 import org.json.JSONObject;
@@ -16,36 +17,49 @@ public class OvenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oven);
 
-        /*Switch switchOn = findViewById(R.id.switch_oven_on);
-
-        RadioGroup radioGroupHeat = findViewById(R.id.radioGroup_oven_heat);
-        RadioGroup radioGroupGrill = findViewById(R.id.radioGroup_oven_grill);
-        RadioGroup radioGroupConvection = findViewById(R.id.radioGroup_oven_convection);
+        /*final Switch switchOn = findViewById(R.id.switch_oven_on);
+        final SeekBar temperature = findViewById(R.id.seekBar_oven_temp);
+        final RadioGroup radioGroupHeat = findViewById(R.id.radioGroup_oven_heat);
+        final RadioGroup radioGroupGrill = findViewById(R.id.radioGroup_oven_grill);
+        final RadioGroup radioGroupConvection = findViewById(R.id.radioGroup_oven_convection);
 
         JSONObject apiResponse = getDeviceStatus(deviceId);
         if(apiResponse.status.equals("on")) {
             switchOn.setChecked(true);
+            switchOn.setText(R.string.on);
         } else {
             switchOn.setChecked(false);
         }
 
         RadioButton[] selectedButtons = new RadioButton[3];
-        selectedButtons[0] = findViewById("radioButton_oven_" + apiResponse.heat.toLowerCase() +"heat");
-        selectedButtons[1] = findViewById("radioButton_oven_" + apiResponse.grill +"grill");
-        selectedButtons[2] = findViewById("radioButton_oven_" + apiResponse.convection +"convection");
+        int rb0 = getResources().getIdentifier("radioButton_oven_" + apiResponse.heat.toLowerCase() +"heat",
+                "id", getPackageName());
+        int rb1 = getResources().getIdentifier("radioButton_oven_" + apiResponse.grill +"grill",
+                "id", getPackageName());
+        int rb2 = getResources().getIdentifier("radioButton_oven_" + apiResponse.convection +"convection",
+                "id", getPackageName());
+        selectedButtons[0] = findViewById(rb0);
+        selectedButtons[1] = findViewById(rb1);
+        selectedButtons[2] = findViewById(rb2);
         for(RadioButton rb : selectedButtons)
             rb.setChecked(true);
 
+        temperature.setMax(230 - 90);
+        temperature.setProgress(apiResponse.temperature);
+
         switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setDeviceStatus(deviceId, "on-status", !isChecked);
+                if(isChecked)
+                    switchOn.setText(R.string.on);
+                else
+                    switchOn.setText(R.string.off);
+                setDeviceStatus(deviceId, "on-status", isChecked);
             }
         });
 
         radioGroupHeat.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
                 setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
             }
         });
@@ -53,7 +67,6 @@ public class OvenActivity extends AppCompatActivity {
         radioGroupGrill.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
                 setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
             }
         });
@@ -61,8 +74,27 @@ public class OvenActivity extends AppCompatActivity {
         radioGroupConvection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
                 setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
+            }
+        });
+
+        temperature.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //t1.setText(progress); //textview with value
+                //Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
+                setDeviceStatus(deviceId, "temperature", ((Integer)progress).toString());
             }
         });*/
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Switch;
 
 import org.json.JSONObject;
@@ -16,37 +17,54 @@ public class ACActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ac);
 
-       /* Switch switchOn = findViewById(R.id.switch_ac_on);
-        RadioGroup radioGroupMode = findViewById(R.id.radioGroup_ac_mode);
-        RadioGroup radioGroupVSwing = findViewById(R.id.radioGroup_vswing);
-        RadioGroup radioGroupHSwing = findViewById(R.id.radioGroup_hswing);
-        RadioGroup radioGroupFanSpeed = findViewById(R.id.radioGroup_fanspeed);
+        /*final Switch switchOn = findViewById(R.id.switch_ac_on);
+        final SeekBar temperature = findViewById(R.id.seekBar_ac_temp);
+        final RadioGroup radioGroupMode = findViewById(R.id.radioGroup_ac_mode);
+        final RadioGroup radioGroupVSwing = findViewById(R.id.radioGroup_vswing);
+        final RadioGroup radioGroupHSwing = findViewById(R.id.radioGroup_hswing);
+        final RadioGroup radioGroupFanSpeed = findViewById(R.id.radioGroup_fanspeed);
 
         JSONObject apiResponse = getDeviceStatus(deviceId);
         if(apiResponse.status.equals("on")) {
             switchOn.setChecked(true);
+            switchOn.setText(R.string.on);
         } else {
             switchOn.setChecked(false);
         }
 
         RadioButton[] selectedButtons = new RadioButton[4];
-        selectedButtons[0] = findViewById("radioButton_ac_" + apiResponse.mode.toLowerCase());
-        selectedButtons[1] = findViewById("radioButton_ac_" + apiResponse.verticalSwing +"vswing");
-        selectedButtons[2] = findViewById("radioButton_ac_" + apiResponse.horizontalSwing +"hswing");
-        selectedButtons[3] = findViewById("radioButton_ac_" + apiResponse.fanSpeed +"fsp");
+        int rb0 = getResources().getIdentifier("radioButton_ac_" + apiResponse.mode.toLowerCase(),
+                "id", getPackageName());
+        int rb1 = getResources().getIdentifier("radioButton_ac_" + apiResponse.verticalSwing +"vswing",
+                "id", getPackageName());
+        int rb2 = getResources().getIdentifier("radioButton_ac_" + apiResponse.horizontalSwing +"hswing",
+                "id", getPackageName());
+        int rb3 = getResources().getIdentifier("radioButton_ac_" + apiResponse.fanSpeed +"fsp",
+                "id", getPackageName());
+        selectedButtons[0] = findViewById(rb0);
+        selectedButtons[1] = findViewById(rb1);
+        selectedButtons[2] = findViewById(rb2);
+        selectedButtons[3] = findViewById(rb3);
         for(RadioButton rb : selectedButtons)
             rb.setChecked(true);
 
+        temperature.setMax(20);
+        temperature.setProgress(apiResponse.temperature);
+
         switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setDeviceStatus(deviceId, "on-status", !isChecked);
+                if(isChecked)
+                    switchOn.setText(R.string.on);
+                else
+                    switchOn.setText(R.string.off);
+                setDeviceStatus(deviceId, "on-status", isChecked);
             }
         });
 
         radioGroupMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
+                //RadioButton checkedRadioButton = findViewById(checkedId);
                 setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
             }
         });
@@ -54,7 +72,6 @@ public class ACActivity extends AppCompatActivity {
         radioGroupVSwing.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
                 setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
             }
         });
@@ -62,7 +79,6 @@ public class ACActivity extends AppCompatActivity {
         radioGroupHSwing.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
                 setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
             }
         });
@@ -70,10 +86,29 @@ public class ACActivity extends AppCompatActivity {
         radioGroupFanSpeed.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
                 setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
             }
         });
+
+        temperature.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //t1.setText(progress); //textview with value
+                //Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
+                setDeviceStatus(deviceId, "temperature", ((Integer)progress).toString());
+            }
+        });*/
 
 //        if(result.status === "on") {
 //            $("#on-status").text("On");
@@ -86,7 +121,7 @@ public class ACActivity extends AppCompatActivity {
 //        $("#vSwing" + result.verticalSwing).prop("checked", true);
 //        $("#hSwing" + result.horizontalSwing).prop("checked", true);
 //        $("#fanSpeed" + result.fanSpeed).prop("checked", true);
-    */}
+    }
 
     protected void onTurnOnOrOff() {
 //        if(status === "On") {
