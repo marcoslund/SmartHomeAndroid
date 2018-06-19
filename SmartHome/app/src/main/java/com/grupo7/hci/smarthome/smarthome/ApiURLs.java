@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -79,12 +80,12 @@ public class ApiURLs {
         return uuid;
     }
 
-    public String executeAction(Device dev, String actionName, Response.Listener<Boolean> listener, Response.ErrorListener errorListener) {
+    public String executeAction(Device dev, String actionName, ArrayList params, Response.Listener<Boolean> listener, Response.ErrorListener errorListener) {
         String url = baseUrl + "devices/" + dev.getId() + "/" + actionName;
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");
-        GsonRequest<Device, Boolean> request =
-                new GsonRequest<Device, Boolean>(Request.Method.PUT, url, dev, "result", Boolean.class, headers, listener, errorListener);
+        GsonRequest<ArrayList, Boolean> request =
+                new GsonRequest<ArrayList, Boolean>(Request.Method.PUT, url, params, "result", Boolean.class, headers, listener, errorListener);
         String uuid = UUID.randomUUID().toString();
         request.setTag(uuid);
         requestQueue.add(request);
@@ -144,8 +145,8 @@ public class ApiURLs {
         String url = baseUrl + "routines/" + rou.getId() + "/execute";
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");
-        GsonRequest<Routine, Boolean> request =
-                new GsonRequest<Routine, Boolean>(Request.Method.PUT, url, rou, "result", Boolean.class, headers, listener, errorListener);
+        GsonRequest<ArrayList, Boolean> request =
+                new GsonRequest<ArrayList, Boolean>(Request.Method.PUT, url, rou.getActions(), "result", Boolean.class, headers, listener, errorListener);
         String uuid = UUID.randomUUID().toString();
         request.setTag(uuid);
         requestQueue.add(request);
