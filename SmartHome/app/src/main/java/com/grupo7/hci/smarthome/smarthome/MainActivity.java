@@ -46,83 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ac);
-
-        final Switch switchOn = findViewById(R.id.switch_ac_on);
-        final RadioGroup radioGroupMode = findViewById(R.id.radioGroup_ac_mode);
-        final RadioGroup radioGroupVSwing = findViewById(R.id.radioGroup_vswing);
-        final RadioGroup radioGroupHSwing = findViewById(R.id.radioGroup_hswing);
-        final RadioGroup radioGroupFanSpeed = findViewById(R.id.radioGroup_fanspeed);
-
-        //JSONObject apiResponse = getDeviceStatus(deviceId);
-        if(hola >= 1) {
-            switchOn.setChecked(true);
-            switchOn.setText(R.string.on);
-        } else {
-            switchOn.setChecked(false);
-        }
-
-        RadioButton[] selectedButtons = new RadioButton[4];
-        int rb0 = getResources().getIdentifier("radioButton_ac_cool", "id", getPackageName());
-        int rb1 = getResources().getIdentifier("radioButton_ac_67vswing", "id", getPackageName());
-        int rb2 = getResources().getIdentifier("radioButton_ac_autohswing", "id", getPackageName());
-        int rb3 = getResources().getIdentifier("radioButton_ac_25fsp", "id", getPackageName());
-
-
-        selectedButtons[0] = findViewById(rb0);
-        selectedButtons[1] = findViewById(rb1);
-        selectedButtons[2] = findViewById(rb2);
-        selectedButtons[3] = findViewById(rb3);
-        for(RadioButton rb : selectedButtons)
-            rb.setChecked(true);
-
-        switchOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //setDeviceStatus(deviceId, "on-status", !isChecked);
-                if(isChecked)
-                    switchOn.setText(R.string.on);
-                else
-                    switchOn.setText(R.string.off);
-            }
-        });
-
-        radioGroupMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
-                Toast.makeText(getApplicationContext(), String.valueOf(checkedId),Toast.LENGTH_LONG).show();
-                //setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
-            }
-        });
-
-        radioGroupVSwing.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
-                Toast.makeText(getApplicationContext(), String.valueOf(checkedId),Toast.LENGTH_LONG).show();
-                //setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
-            }
-        });
-
-        radioGroupHSwing.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
-                Toast.makeText(getApplicationContext(), String.valueOf(checkedId),Toast.LENGTH_LONG).show();
-                //setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
-            }
-        });
-
-        radioGroupFanSpeed.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = findViewById(checkedId);
-                Toast.makeText(getApplicationContext(), String.valueOf(checkedId),Toast.LENGTH_LONG).show();
-                //setDeviceStatus(deviceId, checkedRadioButton.getText().toString().toLowerCase());
-            }
-        });
-        /*super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -147,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });*/
+        });
 
     }
 
