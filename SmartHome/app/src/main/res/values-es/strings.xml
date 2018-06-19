@@ -37,4 +37,6 @@
         <string name="eco">Eco</string>
     <string name="convection">Convección</string>
         <string name="normal">Normal</string>
+    <string name="notifTitle">Puerta Abierta</string>
+    <string name="notifBody">Parece que tiene una puerta abierta. Le aconsejamos que la cierre por seguridad.</string>
 </resources>

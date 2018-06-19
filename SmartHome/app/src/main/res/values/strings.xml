@@ -51,7 +51,8 @@
     <string name="eco">Eco</string>
     <string name="convection">Convection</string>
     <string name="normal">Normal</string>
-
+    <string name="notifTitle">Open Door</string>
+    <string name="notifBody">It seems that you have an open door. We suggest you close it for safety.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
