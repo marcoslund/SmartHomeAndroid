@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.app.AlarmManager;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -93,7 +94,7 @@ public class DoorActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("getState", "Error on Blind get State");
-                // TODO toast init
+                Toast.makeText(context, R.string.init_error_msg, Toast.LENGTH_LONG).show();
                 error.printStackTrace();
             }
         });
@@ -116,12 +117,12 @@ public class DoorActivity extends AppCompatActivity {
                         } else {
                             switchOpen.setText(R.string.close);
                         }
-                        // TODO add success toast
+                        Toast.makeText(context, R.string.action_msg_s, Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO add error toast
+                        Toast.makeText(context, R.string.action_msg_f, Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -142,12 +143,12 @@ public class DoorActivity extends AppCompatActivity {
                             switchOpen.setText(R.string.lock);
                         else
                             switchOpen.setText(R.string.unlock);
-                        // TODO add success toast
+                        Toast.makeText(context, R.string.action_msg_s, Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO add error toast
+                        Toast.makeText(context, R.string.action_msg_f, Toast.LENGTH_LONG).show();
                     }
                 });
             }

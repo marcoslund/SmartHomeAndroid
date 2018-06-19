@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -45,7 +46,6 @@ public class BlindsActivity extends AppCompatActivity {
                         } else {
                             switchOpen.setText(R.string.close);
                         }
-                        // TODO get response data to set switch
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -54,7 +54,7 @@ public class BlindsActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.d("getState", "Error on Blind get State");
-                    // TODO toast init
+                    Toast.makeText(context, R.string.init_error_msg, Toast.LENGTH_LONG).show();
                     error.printStackTrace();
                 }
             });
@@ -74,12 +74,12 @@ public class BlindsActivity extends AppCompatActivity {
                                 switchOpen.setText(R.string.open);
                             else
                                 switchOpen.setText(R.string.close);
-                            // TODO add success toast
+                            Toast.makeText(context, R.string.action_msg_s, Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // TODO add error toast
+                            Toast.makeText(context, R.string.action_msg_f, Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -94,17 +94,5 @@ public class BlindsActivity extends AppCompatActivity {
         ApiURLs.getInstance(context).cancelRequest(requestTag);
     }
 
-    protected void onChangeOpenStatus() {
-//        if(status === "Open") {
-//            api.device.executeAction(device.id, "down", [])
-//        .done(function(data, textStatus, jqXHR) {
-//                $("#open-status").text("Closed");
-//            })
-//         else {
-//            api.device.executeAction(device.id, "up", [])
-//        .done(function(data, textStatus, jqXHR) {
-//                $("#open-status").text("Open");
-//            })
-    }
 
 }

@@ -55,4 +55,13 @@
     <string name="notifBody">It seems that you have an open door. We suggest you close it for safety.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="init_error_msg">Unable to get current status</string>
+    <string name="set_mode_s">Mode changed successfully</string>
+    <string name="set_mode_f">Mode change failed</string>
+    <string name="set_temperature_s">Temperature changed successfully</string>
+    <string name="set_temperature_f">Temperature change failed</string>
+    <string name="set_ftemperature_s">Freezer temperature changed successfully</string>
+    <string name="set_ftemperature_f">Freezer temperature change failed</string>
+    <string name="action_msg_s">Action Recorded</string>
+    <string name="action_msg_f">Could not save action</string>
 </resources>

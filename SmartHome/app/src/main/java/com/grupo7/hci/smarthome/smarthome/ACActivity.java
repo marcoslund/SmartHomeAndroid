@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -89,7 +90,7 @@ public class ACActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("getState", "Error on Blind get State");
-                // TODO toast init
+                Toast.makeText(context, R.string.init_error_msg, Toast.LENGTH_LONG).show();
                 error.printStackTrace();
             }
         });
@@ -112,12 +113,12 @@ public class ACActivity extends AppCompatActivity {
                                 switchOn.setText(R.string.on);
                             else
                                 switchOn.setText(R.string.off);
-                            // TODO add success toast
+                            Toast.makeText(context, R.string.action_msg_s, Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // TODO add error toast
+                            Toast.makeText(context, R.string.action_msg_f, Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -164,11 +165,9 @@ public class ACActivity extends AppCompatActivity {
             temperatureSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    // TODO Auto-generated method stub
                 }
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
-                    // TODO Auto-generated method stub
                 }
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -177,12 +176,12 @@ public class ACActivity extends AppCompatActivity {
                     requestTag = ApiURLs.getInstance(context).executeAction(dev, "setTemperature", temperature, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            // TODO add success toast
+                            Toast.makeText(context, R.string.set_temperature_s, Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // TODO add error toast
+                            Toast.makeText(context, R.string.set_temperature_f, Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -204,12 +203,12 @@ public class ACActivity extends AppCompatActivity {
         requestTag = ApiURLs.getInstance(context).executeAction(dev, actionName, param, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                // TODO add success toast
+                Toast.makeText(context, R.string.action_msg_s, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // TODO add error toast
+                Toast.makeText(context, R.string.action_msg_f, Toast.LENGTH_LONG).show();
             }
         });
     }

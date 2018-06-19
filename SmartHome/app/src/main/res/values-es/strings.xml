@@ -38,5 +38,10 @@
     <string name="convection">Convección</string>
         <string name="normal">Normal</string>
     <string name="notifTitle">Puerta Abierta</string>
-    <string name="notifBody">Parece que tiene una puerta abierta. Le aconsejamos que la cierre por seguridad.</string>
+    <string name="notifBody">Parece que tiene una puerta abierta. Le aconsejamos que la cierre por seguridad</string>
+    <string name="init_error_msg">No se pudo traer la información actual.</string>
+    <string name="set_mode_s">Cambio de modo exitoso</string>
+    <string name="set_mode_f">Fallo en el cambio de modo</string>
+    <string name="action_msg_s">Acción guardada</string>
+    <string name="action_msg_f">No se pudo guardar la acción</string>
 </resources>
