@@ -23,7 +23,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.grupo7.hci.smarthome.smarthome.Classes.ApiURLs;
-import com.grupo7.hci.smarthome.smarthome.Classes.Device;
 
 import org.json.JSONArray;
 import org.json.JSONException;
