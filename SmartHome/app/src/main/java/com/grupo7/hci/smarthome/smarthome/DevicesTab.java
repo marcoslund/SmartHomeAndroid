@@ -1,5 +1,6 @@
 package com.grupo7.hci.smarthome.smarthome;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -63,11 +64,7 @@ public class DevicesTab extends Fragment {
                                 Log.d("name", "Name: " + name);
                                 Log.d("meta", "Meta: " + meta);
                                 Button deviceBtn = new Button(getActivity());
-
-                                //deviceBtn.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.devices_button, null));
-                                //deviceBtn.setBackgroundResource(R.drawable.devices_button);
                                 deviceBtn.setText(name);
-                                //deviceBtn.setId(Integer.parseInt(id));
 
                                 Drawable image;
                                 Bitmap bitmap;
@@ -75,23 +72,7 @@ public class DevicesTab extends Fragment {
                                     image = ResourcesCompat.getDrawable(getResources(), R.drawable.ac_icon, null);
                                     bitmap = ((BitmapDrawable) image).getBitmap();
                                     image = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 200, 200, true));
-
-                                    deviceBtn.setOnClickListener(new OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            startActivity(new Intent(getActivity(), ACActivity.class));
-                                        }
-                                    });
-
                                 } else if(typeId.equals("eu0v2xgprrhhg41g")) {
-
-                                    deviceBtn.setOnClickListener(new OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            onDeviceSelected(id, typeId, name, meta);
-                                        }
-                                    });
-
                                     image = ResourcesCompat.getDrawable(getResources(), R.drawable.blinds_icon, null);
                                     bitmap = ((BitmapDrawable) image).getBitmap();
                                     image = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 200, 200, true));
@@ -113,6 +94,12 @@ public class DevicesTab extends Fragment {
                                     image = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 200, 200, true));
                                 }
                                 deviceBtn.setCompoundDrawablesWithIntrinsicBounds(image, null, null, null);
+                                deviceBtn.setOnClickListener(new OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        onDeviceSelected(id, typeId, name, meta);
+                                    }
+                                });
                                 parent = (LinearLayout) getActivity().findViewById(R.id.l1_parent);
                                 parent.addView(deviceBtn);
                             }
@@ -133,39 +120,34 @@ public class DevicesTab extends Fragment {
     }
 
     public void onDeviceSelected(String id, String typeId, String name, String meta) {
-        Log.d("hola", "Clicked " + id + " " + typeId + " " + name + " " + meta);
+        Fragment newFragment;
         if(typeId.equals("li6cbv5sdlatti0j")) {
-
+            newFragment = new ACActivity();
         } else if(typeId.equals("eu0v2xgprrhhg41g")) { // Blinds
-            BlindsActivity blindsFrag = new BlindsActivity();
-            Bundle args = new Bundle();
-            args.putString("deviceId", id);
-            args.putString("typeId", typeId);
-            args.putString("name", name);
-            args.putString("meta", meta);
-            blindsFrag.setArguments(args);
-            //FragmentTransaction transaction = getFragmentManager().beginTransaction()
-            getFragmentManager().beginTransaction()
-                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                    .show(blindsFrag)
-                    .commit();
-            // Replace whatever is in the fragment_container view with this fragment,
-            // and add the transaction to the back stack so the user can navigate back
-            //transaction.replace(R.id.devices, blindsFrag);
-            //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            //transaction.addToBackStack(null);
-            // Commit the transaction
-            //transaction.commit();
+            newFragment = new BlindsActivity();
         } else if(typeId.equals("lsf78ly0eqrjbz91")) {
-
+            newFragment = new DoorActivity();
         } else if(typeId.equals("go46xmbqeomjrsjr")) {
-
+            newFragment = new LampActivity();
         } else if(typeId.equals("im77xxyulpegfmv8")) {
-
+            newFragment = new OvenActivity();
         } else /*if(typeId.equals("rnizejqr2di0okho"))*/ {
-
+            newFragment = new RefrigeratorActivity();
         }
-
+        Bundle args = new Bundle();
+        args.putString("deviceId", id);
+        args.putString("typeId", typeId);
+        args.putString("name", name);
+        args.putString("meta", meta);
+        newFragment.setArguments(args);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.tabItem2, newFragment);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
     }
 
 }

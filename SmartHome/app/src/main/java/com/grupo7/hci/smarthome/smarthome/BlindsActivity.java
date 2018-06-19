@@ -68,7 +68,7 @@ public class BlindsActivity extends Fragment {
         final Switch switchOpen = (Switch) getView().findViewById(R.id.switch_blinds_open);
 
         if (switchOpen != null) {
-            /*requestTag = ApiURLs.getInstance(context).executeAction(dev, "getState", new ArrayList(), new Response.Listener<JSONObject>() {
+            requestTag = ApiURLs.getInstance(context).executeAction(dev, "getState", new ArrayList(), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -93,7 +93,7 @@ public class BlindsActivity extends Fragment {
                     Toast.makeText(context, R.string.init_error_msg, Toast.LENGTH_LONG).show();
                     error.printStackTrace();
                 }
-            });*/
+            });
 
             switchOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -122,19 +122,6 @@ public class BlindsActivity extends Fragment {
                 }
             });
         }
-    }
-
-    protected void onChangeOpenStatus() {
-//        if(status === "Open") {
-//            api.device.executeAction(device.id, "down", [])
-//        .done(function(data, textStatus, jqXHR) {
-//                $("#open-status").text("Closed");
-//            })
-//         else {
-//            api.device.executeAction(device.id, "up", [])
-//        .done(function(data, textStatus, jqXHR) {
-//                $("#open-status").text("Open");
-//            })
     }
 
 }

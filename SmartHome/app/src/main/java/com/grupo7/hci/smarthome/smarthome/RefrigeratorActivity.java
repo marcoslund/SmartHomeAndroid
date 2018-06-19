@@ -1,12 +1,18 @@
 package com.grupo7.hci.smarthome.smarthome;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -17,22 +23,50 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class RefrigeratorActivity extends AppCompatActivity {
+public class RefrigeratorActivity extends Fragment {
 
     private String requestTag;
     private Device dev;
     private Context context;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_refrigerator);
+        context = getContext();
+        return inflater.inflate(R.layout.activity_refrigerator, container, false);
+    }
 
-        context = this.getApplicationContext();
+    @Override
+    public void onStop() {
+        super.onStop();
+        ApiURLs.getInstance(context).cancelRequest(requestTag);
+    }
 
-        final SeekBar temperatureSeek = (SeekBar) findViewById(R.id.seekBar_refrigerator_temperature);
-        final SeekBar freezerSeek = (SeekBar) findViewById(R.id.seekBar_refrigerator_freezer);
-        final RadioGroup radioGroupMode = (RadioGroup) findViewById(R.id.radioGroup_refrigerator_mode);
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // During startup, check if there are arguments passed to the fragment.
+        // onStart is a good place to do this because the layout has already been
+        // applied to the fragment at this point so we can safely call the method
+        // below that sets the article text.
+        Bundle args = getArguments();
+        if (args != null) {
+            String deviceId = getArguments().getString("deviceId");
+            String typeId = getArguments().getString("typeId");
+            String name = getArguments().getString("name");
+            String meta = getArguments().getString("meta");
+            dev = new Device(deviceId, typeId, name, meta);
+            updateDeviceView();
+        }
+    }
+
+    public void updateDeviceView() {
+
+        final SeekBar temperatureSeek = (SeekBar) getView().findViewById(R.id.seekBar_refrigerator_temperature);
+        final SeekBar freezerSeek = (SeekBar) getView().findViewById(R.id.seekBar_refrigerator_freezer);
+        final RadioGroup radioGroupMode = (RadioGroup) getView().findViewById(R.id.radioGroup_refrigerator_mode);
 
         if (temperatureSeek != null) {
             temperatureSeek.setMax(6);
@@ -58,7 +92,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
                     RadioButton[] selectedButtons = new RadioButton[1];
                     int rb0 = getResources().getIdentifier("radioButton_refrigerator_" + mode.toLowerCase() + "mode",
                             "id", getPackageName());
-                    selectedButtons[0] = findViewById(rb0);
+                    selectedButtons[0] = getView().findViewById(rb0);
                     for(RadioButton rb : selectedButtons) {
                         if (rb != null)
                             rb.setChecked(true);
@@ -80,7 +114,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
             radioGroupMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
+                    RadioButton checkedRadioButton = (RadioButton) getView().findViewById(checkedId);
                     ArrayList param = new ArrayList();
                     if (checkedRadioButton != null)
                         param.add(checkedRadioButton.getText().toString().toLowerCase());
@@ -149,4 +183,5 @@ public class RefrigeratorActivity extends AppCompatActivity {
             });
         }
     }
+
 }

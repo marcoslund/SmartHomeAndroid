@@ -23,24 +23,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DoorActivity"
-            android:label="@string/door" />
-        <activity
-            android:name=".BlindsActivity"
-            android:label="@string/blinds" />
-        <activity
-            android:name=".ACActivity"
-            android:label="@string/air_conditioner" />
-        <activity
-            android:name=".LampActivity"
-            android:label="@string/lamp" />
-        <activity
-            android:name=".OvenActivity"
-            android:label="@string/oven" />
-        <activity
-            android:name=".RefrigeratorActivity"
-            android:label="@string/refrigerator" />
-        <activity
             android:name=".CreateDeviceActivity"
             android:label="@string/add_device" />
     </application>
