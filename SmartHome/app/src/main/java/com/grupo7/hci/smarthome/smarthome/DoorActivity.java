@@ -1,70 +1,132 @@
 package com.grupo7.hci.smarthome.smarthome;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class DoorActivity extends AppCompatActivity {
+
+    private String requestTag;
+    private Device dev;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_door);
 
-        /*final Switch switchOpen = findViewById(R.id.switch_door_open);
-        final Switch switchLock = findViewById(R.id.switch_door_lock);
+        context = this.getApplicationContext();
 
-        JSONObject apiResponse = getDeviceStatus(deviceId);
-        if(apiResponse.status.equals("open") || apiResponse.status.equals("opening")) {
-            switchOpen.setChecked(true);
-            switchOpen.setText(R.string.open);
-        } else {
-            switchOpen.setChecked(false);
-        }
+        final Switch switchOpen = (Switch) findViewById(R.id.switch_door_open);
+        final Switch switchLock = (Switch) findViewById(R.id.switch_door_lock);
 
-        switchOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    switchOpen.setText(R.string.open);
-                else
-                    switchOpen.setText(R.string.close);
-                setDeviceStatus(deviceId, "open-status", isChecked);
+
+        requestTag = ApiURLs.getInstance(context).executeAction(dev, "getState", new ArrayList(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject result = response.getJSONObject("result");
+                    String status = result.getString("status");
+                    String lock = result.getString("lock");
+                    if (switchOpen != null) {
+                        if (status == "opened" || status == "opening") {
+                            switchOpen.setText(R.string.open);
+                            switchOpen.setChecked(true);
+                        } else {
+                            switchOpen.setText(R.string.close);
+                        }
+                    }
+                    if(switchLock != null) {
+                        if (status == "locked") {
+                            switchLock.setText(R.string.lock);
+                            switchLock.setChecked(true);
+                        } else {
+                            switchLock.setText(R.string.unlock);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("getState", "Error on Blind get State");
+                // TODO toast init
+                error.printStackTrace();
             }
         });
 
-        if(apiResponse.status.equals("locked")) {
-            switchLock.setChecked(true);
-            switchLock.setText(R.string.lock);
-        } else {
-            switchLock.setChecked(false);
-        }
+
+        switchOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String actionName;
+                final boolean auxChecked = isChecked;
+                if (isChecked)
+                    actionName = "open";
+                else
+                    actionName = "close";
+                requestTag = ApiURLs.getInstance(context).executeAction(dev, actionName, new ArrayList(), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (auxChecked)
+                            switchOpen.setText(R.string.open);
+                        else
+                            switchOpen.setText(R.string.close);
+                        // TODO add success toast
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO add error toast
+                    }
+                });
+            }
+        });
 
         switchLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    switchLock.setText(R.string.lock);
+                String actionName;
+                final boolean auxChecked = isChecked;
+                if (isChecked)
+                    actionName = "lock";
                 else
-                    switchLock.setText(R.string.unlock);
-                setDeviceStatus(deviceId, "lock-status", isChecked);
+                    actionName = "unlock";
+                requestTag = ApiURLs.getInstance(context).executeAction(dev, actionName, new ArrayList(), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (auxChecked)
+                            switchOpen.setText(R.string.lock);
+                        else
+                            switchOpen.setText(R.string.unlock);
+                        // TODO add success toast
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO add error toast
+                    }
+                });
             }
-        });*/
+        });
+    }
 
-//        .done(function(data, textStatus, jqXHR) {
-//            if (data.result.status === "opened" || data.result.status === "opening") {
-//                $("#open-status").text("Open");
-//                $("#open-switch").prop("checked", true);
-//            } else {
-//                $("#open-status").text("Closed");
-//            }
-//            if (data.result.lock === "locked") {
-//                $("#lock-status").text("Locked");
-//                $("#lock-switch").prop("checked", true);
-//            } else {
-//                $("#lock-status").text("Unlocked");
-//            }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ApiURLs.getInstance(context).cancelRequest(requestTag);
     }
 
     protected void onChangeOpenStatus() {
